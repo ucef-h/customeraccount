@@ -1,0 +1,14 @@
+version: '3.4'
+
+services:
+  customer.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "81:80"
+
+  account.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "82:80"
