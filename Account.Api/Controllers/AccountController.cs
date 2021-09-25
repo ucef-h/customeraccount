@@ -19,7 +19,7 @@ namespace Account.Api.Controllers
         [HttpPost]
         public async Task<ResponseBase<AccountResponse>> Get(AccountInfoRequest accountInfo)
         {
-            var result = await _mediator.Send(new AccountQuery(accountInfo.Id));
+            var result = await _mediator.Send(new AccountQuery(accountInfo.Email));
             return new ResponseBase<AccountResponse>(result, true);
         }
 

@@ -4,11 +4,11 @@ namespace Account.Application
 {
     public class AccountQuery : IRequest<AccountResponse>
     {
-        public AccountQuery(string accountId)
+        public AccountQuery(string customerEmail)
         {
-            AccountId = accountId;
+            CustomerEmail = customerEmail;
         }
 
-        public string AccountId { get; }
+        public string CustomerEmail { get; }
     }
 }

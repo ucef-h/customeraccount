@@ -5,11 +5,14 @@ namespace Account.Domain
 {
     public class Customer : ValueObject
     {
-        public Customer(string customerId, string customerName)
+        public Customer(string email, string customerId, string customerName)
         {
+            CustomerEmail = email;
             CustomerId = customerId;
             CustomerName = customerName;
         }
+
+        public string CustomerEmail { get; private set; }
 
         public string CustomerId { get; private set; }
 

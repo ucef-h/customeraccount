@@ -21,7 +21,7 @@ namespace Account.Application
         public async Task<bool> Handle(CreateAccountCommand request,
             CancellationToken cancellationToken)
         {
-            var customer = new Customer(request.CustomerId, request.CustomerName);
+            var customer = new Customer(request.CustomerEmail, request.CustomerId, request.CustomerName);
             var account = new Domain.Account(customer, new Money(request.InitialCredit));
 
             await _unitOfWork.SaveEntitiesAsync(account);

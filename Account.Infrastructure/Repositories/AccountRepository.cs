@@ -10,11 +10,11 @@ namespace Account.Infrastructure.Repositories
 {
     public class AccountRepository : EntityRepository<Domain.Account, string>, IAccountRepository
     {
-        private readonly IMongoCollection<Domain.Account> _application;
+        private readonly IMongoCollection<Domain.Account> _account;
 
         public AccountRepository(IMongoClient client)
         {
-            _application = client.GetDatabase("customer-account").GetCollection<Domain.Account>(EntityName);
+            _account = client.GetDatabase("customer-account").GetCollection<Domain.Account>(EntityName);
         }
 
         public sealed override string EntityName => "account";
@@ -27,18 +27,18 @@ namespace Account.Infrastructure.Repositories
             }
 
             PreInsertEntity(entity);
-            await _application.InsertOneAsync(entity);
+            await _account.InsertOneAsync(entity);
         }
 
         public async Task UpdateAsync(Domain.Account entity)
         {
             PreUpdateEntity(entity);
-            await _application.ReplaceOneAsync(filter => filter.Id.Equals(entity.Id), entity);
+            await _account.ReplaceOneAsync(filter => filter.Id.Equals(entity.Id), entity);
         }
 
         public async Task<Domain.Account> SelectAsync(string accountId)
         {
-            var account = await _application.Find(e => e.Id.Equals(accountId)).FirstOrDefaultAsync();
+            var account = await _account.Find(e => e.Id.Equals(accountId)).FirstOrDefaultAsync();
             if (account == null)
             {
                 throw new AccountNotFoundException(accountId);
@@ -48,9 +48,22 @@ namespace Account.Infrastructure.Repositories
             return account;
         }
 
+        public async Task<Domain.Account> FindByEmailAsync(string customerEmail)
+        {
+            var account = await _account.Find(e => e.Owner.CustomerEmail.Equals(customerEmail)).FirstOrDefaultAsync();
+
+            if (account == null)
+            {
+                throw new AccountNotFoundException(customerEmail);
+            }
+
+            account.ReApplyAll();
+            return account;
+        }
+
         public async Task<List<Domain.Account>> SelectAllAsync()
         {
-            return await _application.Find(e => true).ToListAsync();
+            return await _account.Find(e => true).ToListAsync();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Account.Domain.Test
         [Test]
         public void AccountInit()
         {
-            var account = new Account(new Customer("", ""), new Money(3));
+            var account = new Account(new Customer("", "", ""), new Money(3));
 
             Assert.AreSame(account.DomainEvents.First().GetType(), new AccountCreatedEvent().GetType());
             Assert.AreSame(account.DomainEvents.ElementAt(1).GetType(), new DepositEvent().GetType());
@@ -32,7 +32,7 @@ namespace Account.Domain.Test
         [Test]
         public void AccountTestDeposit()
         {
-            var account = new Account(new Customer("", ""), new Money(3));
+            var account = new Account(new Customer("", "", ""), new Money(3));
 
             account.Deposit(new Money(2));
             account.Deposit(new Money(4));
@@ -51,7 +51,7 @@ namespace Account.Domain.Test
         [Test]
         public void AccountWithdrawal()
         {
-            var account = new Account(new Customer("", ""), new Money(10));
+            var account = new Account(new Customer("", "", ""), new Money(10));
 
             account.Withdraw(new Money(2));
             account.Withdraw(new Money(4));
@@ -69,7 +69,7 @@ namespace Account.Domain.Test
         [Test]
         public void AccountDepositAndWithdrawal()
         {
-            var account = new Account(new Customer("", ""), new Money(10));
+            var account = new Account(new Customer("", "", ""), new Money(10));
 
             account.Withdraw(new Money(2));
             account.Deposit(new Money(4));
@@ -87,7 +87,7 @@ namespace Account.Domain.Test
         [Test]
         public void AccountReApply()
         {
-            var account = new Account(new Customer("id", "name"), new Money(10));
+            var account = new Account(new Customer("email", "id", "name"), new Money(10));
 
             account.Withdraw(new Money(2));
             account.Deposit(new Money(4));
@@ -104,13 +104,13 @@ namespace Account.Domain.Test
             }
             newAccount.ArchiveDomainEvents();
 
-            Assert.Null(newAccount.owner);
+            Assert.Null(newAccount.Owner);
             Assert.Null(newAccount.Balance);
 
             newAccount.ReApplyAll();
 
-            Assert.AreEqual(newAccount.owner.CustomerId, "id");
-            Assert.AreEqual(newAccount.owner.CustomerName, "name");
+            Assert.AreEqual(newAccount.Owner.CustomerId, "id");
+            Assert.AreEqual(newAccount.Owner.CustomerName, "name");
 
             Assert.AreEqual(account.DomainEvents.Count, 6);
             Assert.AreEqual(account.DomainEvents.OfType<DepositEvent>().Count(), 3);
@@ -123,21 +123,21 @@ namespace Account.Domain.Test
         [Test]
         public void AccountOverWithdraw()
         {
-            var account = new Account(new Customer("", ""), new Money(10));
+            var account = new Account(new Customer("", "", ""), new Money(10));
             Assert.Throws<AccountWithdrawalException>(() => account.Withdraw(new Money(11)));
         }
 
         [Test]
         public void AccountWithdrawNegative()
         {
-            var account = new Account(new Customer("", ""), new Money(10));
+            var account = new Account(new Customer("", "", ""), new Money(10));
             Assert.Throws<ArgumentOutOfRangeException>(() => account.Withdraw(new Money(-1)));
         }
 
         [Test]
         public void AccountDepositNegative()
         {
-            var account = new Account(new Customer("", ""), new Money(10));
+            var account = new Account(new Customer("", "", ""), new Money(10));
             Assert.Throws<ArgumentOutOfRangeException>(() => account.Deposit(new Money(-1)));
         }
 
@@ -150,7 +150,7 @@ namespace Account.Domain.Test
         [Test]
         public void AccountMoneyNull()
         {
-            Assert.Throws<ArgumentNullException>(() => new Account(new Customer("", ""), null));
+            Assert.Throws<ArgumentNullException>(() => new Account(new Customer("", "", ""), null));
         }
     }
 }
