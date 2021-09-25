@@ -14,14 +14,14 @@ namespace Account.Domain
             if (owner == null)
                 throw new ArgumentNullException(nameof(owner));
 
-            this.owner = owner;
+            this.Owner = owner;
             this.Balance = Money.Zero();
 
             this.AddAccountCreatedEvent(owner);
             this.AddDepositEvent(initialCredit);
         }
 
-        public Customer owner { get; private set; }
+        public Customer Owner { get; private set; }
 
         public Money Balance { get; private set; }
 
@@ -58,7 +58,7 @@ namespace Account.Domain
             {
                 case AccountCreatedEvent c:
                     this.Balance = Money.Zero();
-                    this.owner = c.Owner;
+                    this.Owner = c.Owner;
                     break;
                 case WithdrawalEvent w:
                     this.Balance = this.Balance.Subtract(w.Amount.Value);

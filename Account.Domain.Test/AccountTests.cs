@@ -104,13 +104,13 @@ namespace Account.Domain.Test
             }
             newAccount.ArchiveDomainEvents();
 
-            Assert.Null(newAccount.owner);
+            Assert.Null(newAccount.Owner);
             Assert.Null(newAccount.Balance);
 
             newAccount.ReApplyAll();
 
-            Assert.AreEqual(newAccount.owner.CustomerId, "id");
-            Assert.AreEqual(newAccount.owner.CustomerName, "name");
+            Assert.AreEqual(newAccount.Owner.CustomerId, "id");
+            Assert.AreEqual(newAccount.Owner.CustomerName, "name");
 
             Assert.AreEqual(account.DomainEvents.Count, 6);
             Assert.AreEqual(account.DomainEvents.OfType<DepositEvent>().Count(), 3);

@@ -41,7 +41,8 @@ Once a customer is created with a positive Event will be sent to Account microse
 - Description: Responsible to Manage Account Transactions and Balance
  
 Swagger Can be used in order to Extract Account Information and Balance. Additional operations can be done on the Account (Deposit and Withdrawal).
- 
+
+*Use the Debug Controller to extract the newly created Account Id.*
  
  
  

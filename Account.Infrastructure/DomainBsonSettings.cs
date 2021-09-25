@@ -9,7 +9,7 @@ namespace Account.Infrastructure
             BsonClassMap.RegisterClassMap<Domain.Account>(cm =>
             {
                 cm.AutoMap();
-                cm.UnmapField(m => m.owner);
+                cm.UnmapField(m => m.Owner);
                 cm.UnmapField(m => m.Balance);
             });
         }
