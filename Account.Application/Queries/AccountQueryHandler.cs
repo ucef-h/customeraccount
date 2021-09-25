@@ -17,7 +17,7 @@ namespace Account.Application
         public async Task<AccountResponse> Handle(AccountQuery request, CancellationToken cancellationToken)
         {
             var account = await _accountRepository.SelectAsync(request.AccountId);
-            return new AccountResponse(account.Id, account.owner.CustomerName, account.Balance.Value);
+            return new AccountResponse(account.Id, account.Owner.CustomerName, account.Balance.Value);
         }
     }
 }
