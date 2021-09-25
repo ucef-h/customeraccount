@@ -48,6 +48,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FCE5F475-3E1C-4BAA-8F4F-2C433C45ACC0}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		.github\workflows\DockerBuild.yml = .github\workflows\DockerBuild.yml
+		.github\workflows\test.yml = .github\workflows\test.yml
 	EndProjectSection
 EndProject
 Global
