@@ -14,12 +14,15 @@ namespace Account.Domain
             if (owner == null)
                 throw new ArgumentNullException(nameof(owner));
 
+            this.Email = owner.CustomerEmail;
             this.Owner = owner;
             this.Balance = Money.Zero();
 
             this.AddAccountCreatedEvent(owner);
             this.AddDepositEvent(initialCredit);
         }
+
+        public string Email { get; set; }
 
         public Customer Owner { get; private set; }
 

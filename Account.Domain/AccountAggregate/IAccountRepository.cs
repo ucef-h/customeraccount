@@ -10,5 +10,6 @@ namespace Account.Domain
         Task UpdateAsync(Account entity);
         Task<Account> SelectAsync(string accountId);
         Task<List<Account>> SelectAllAsync();
+        Task<Account> GetByEmail(string accountEmail);
     }
 }

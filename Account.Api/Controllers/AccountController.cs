@@ -36,5 +36,12 @@ namespace Account.Api.Controllers
             var result = await _mediator.Send(new DepositAccountCommand(accountInfo.Id, accountInfo.Amount));
             return new ResponseBase<string>(result);
         }
+
+        [HttpPost]
+        public async Task<ResponseBase<AccountResponse>> GetByEmail(AccountInfoRequest accountInfo)
+        {
+            var result = await _mediator.Send(new AccountByEmailQuery(accountInfo.Email));
+            return new ResponseBase<AccountResponse>(result, true);
+        }
     }
 }

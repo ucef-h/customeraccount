@@ -41,7 +41,7 @@ namespace Account.Infrastructure.Repositories
             var account = await _account.Find(e => e.Id.Equals(accountId)).FirstOrDefaultAsync();
             if (account == null)
             {
-                throw new AccountNotFoundException(accountId);
+                throw new AccountNotFoundException(accountId, nameof(Domain.Account.Id));
             }
 
             account.ReApplyAll();
@@ -50,7 +50,22 @@ namespace Account.Infrastructure.Repositories
 
         public async Task<List<Domain.Account>> SelectAllAsync()
         {
-            return await _account.Find(e => true).ToListAsync();
+            var account = await _account.Find(e => true).ToListAsync();
+
+            account?.ForEach(e => e.ReApplyAll());
+            return account;
+        }
+
+        public async Task<Domain.Account> GetByEmail(string accountEmail)
+        {
+            var account = await _account.Find(e => e.Email.Equals(accountEmail)).FirstOrDefaultAsync();
+            if (account == null)
+            {
+                throw new AccountNotFoundException(accountEmail, nameof(Domain.Account.Email));
+            }
+
+            account.ReApplyAll();
+            return account;
         }
     }
 }
