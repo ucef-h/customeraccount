@@ -22,7 +22,7 @@ namespace Customer.Api.Controllers
             var result = await _mediator.Send(new InsertCustomerCommand(
                 customerInfo.Name, customerInfo.Email, customerInfo.Credits)
             );
-            return new ResponseBase<bool>(result);
+            return new ResponseBase<bool>(result, result);
         }
     }
 }

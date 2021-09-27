@@ -1,4 +1,9 @@
 # customer-account
+
+## Dependencies
+
+`Docker`
+
 ## Installation
 Run the below command
 ```sh
@@ -34,7 +39,8 @@ The project consists of two microservices that communicate with each other using
 Swagger Can be used in order to Create a Customer.
  
 Once a customer is created with a positive Event will be sent to Account microservice.
- 
+
+
  
 ### Account API
 - URI: http://localhost:82/swagger/index.html
@@ -42,8 +48,17 @@ Once a customer is created with a positive Event will be sent to Account microse
  
 Swagger Can be used in order to Extract Account Information and Balance. Additional operations can be done on the Account (Deposit and Withdrawal).
 
-*Use the Debug Controller to extract the newly created Account Id.*
- 
- 
- 
+Use the email of the customer in order to get information about the Account.
+
+
+ ## Methodologies and Pattern
+ - `DDD` is used in both Customer and Account
+ - `Domain Event` and `Integration Event` are demonstrated for internal and external communication
+ - `Event Sourcing` is used in Account Service
+ - `CQRS` is used in the Application Layer
+
+ ## CI
+ Github Action is configured to 
+ - Run Test
+ - Build and push Docker images to DockerHub
 

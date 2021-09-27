@@ -19,7 +19,8 @@ namespace Account.Domain.Exceptions
 
     public class AccountNotFoundException : AccountDomainException
     {
-        public AccountNotFoundException(string Id) : base(String.Format("Account with Id {0} is not found", Id))
+        public AccountNotFoundException(string value, string property = "Argument")
+            : base($"Account with {property} {value} not found")
         {
         }
     }
