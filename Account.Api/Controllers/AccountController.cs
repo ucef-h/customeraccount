@@ -17,9 +17,9 @@ namespace Account.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ResponseBase<AccountResponse>> Get(AccountInfoRequest accountInfo)
+        public async Task<ResponseBase<AccountResponse>> Get(string id)
         {
-            var result = await _mediator.Send(new AccountQuery(accountInfo.Id));
+            var result = await _mediator.Send(new AccountQuery(id));
             return new ResponseBase<AccountResponse>(result, true);
         }
 
@@ -38,9 +38,9 @@ namespace Account.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ResponseBase<AccountResponse>> GetByEmail(AccountInfoRequest accountInfo)
+        public async Task<ResponseBase<AccountResponse>> GetByEmail(string email)
         {
-            var result = await _mediator.Send(new AccountByEmailQuery(accountInfo.Email));
+            var result = await _mediator.Send(new AccountByEmailQuery(email));
             return new ResponseBase<AccountResponse>(result, true);
         }
     }
